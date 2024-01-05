@@ -9,7 +9,7 @@ function search(str) {
 	if (!str) { // if search bar is empty, don't return anything
 		results = [];
 	}
-	else {
+	else { // filter for results that contain input
 		results = fruit.filter(value => {
 			let lowercaseInput = str.toLowerCase();
 			let lowercaseFruit = value.toLowerCase();
@@ -31,10 +31,10 @@ function showSuggestions(results, inputVal) {
 	for (let i = 0; i < results.length; i++) {
 		let listItem = document.createElement("LI");
 		let bolded = results[i].toLowerCase().replaceAll(inputVal, "<b>" + inputVal + "</b>");
-		if (bolded[0] === "<") {
+		if (bolded[0] === "<") { // if first letter is bold, re-capitalize it
 			bolded = bolded.slice(0,3) + bolded.charAt(3).toUpperCase() + bolded.slice(4);
 		}
-		else {
+		else { // if first letter is not bold, re-capitalize it
 			bolded = bolded.charAt(0).toUpperCase() + bolded.slice(1);
 		}
 		listItem.innerHTML = bolded;
