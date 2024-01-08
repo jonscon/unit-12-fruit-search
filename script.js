@@ -23,11 +23,12 @@ function search(str) {
 function searchHandler(e) {
 	suggestions.innerHTML = ""
 	let results = search(e.target.value);
-	showSuggestions(results, e.target.value);
+	showSuggestions(results, e.target.value.toLowerCase());
 }
 
 // appends each result to the suggestions container
 function showSuggestions(results, inputVal) { 
+	console.log(results, inputVal);
 	for (let i = 0; i < results.length; i++) {
 		let listItem = document.createElement("LI");
 		let bolded = results[i].toLowerCase().replaceAll(inputVal, "<b>" + inputVal + "</b>");
@@ -44,7 +45,11 @@ function showSuggestions(results, inputVal) {
 
 // populates search bar when a fruit is clicked
 function useSuggestion(e) {
-	input.value = e.target.innerHTML;
+	let clicked = e.target.innerHTML;
+	clicked = clicked.replaceAll("<b>", "");
+	clicked = clicked.replaceAll("</b>", "");
+	input.value = clicked;
+	suggestions.innerHTML = "";
 }
 
 input.addEventListener('keyup', searchHandler);
