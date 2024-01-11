@@ -5,17 +5,10 @@ const fruit = ['Apple', 'Apricot', 'Avocado 🥑', 'Banana', 'Bilberry', 'Blackb
 
 // searches through "fruit" array and returns a filtered result
 function search(str) {
-	let results = [];
+	let results = fruit.filter(value => value.toLowerCase().includes(str.toLowerCase()))
 	if (!str) { // if search bar is empty, don't return anything
 		results = [];
 	}
-	else { // filter for results that contain input
-		results = fruit.filter(value => {
-			let lowercaseInput = str.toLowerCase();
-			let lowercaseFruit = value.toLowerCase();
-			return lowercaseFruit.includes(lowercaseInput);
-		})
-	}	
 	return results;
 }
 
@@ -28,7 +21,6 @@ function searchHandler(e) {
 
 // appends each result to the suggestions container
 function showSuggestions(results, inputVal) { 
-	console.log(results, inputVal);
 	for (let i = 0; i < results.length; i++) {
 		let listItem = document.createElement("LI");
 		let bolded = results[i].toLowerCase().replaceAll(inputVal, "<b>" + inputVal + "</b>");
@@ -45,10 +37,7 @@ function showSuggestions(results, inputVal) {
 
 // populates search bar when a fruit is clicked
 function useSuggestion(e) {
-	let clicked = e.target.innerHTML;
-	clicked = clicked.replaceAll("<b>", "");
-	clicked = clicked.replaceAll("</b>", "");
-	input.value = clicked;
+	input.value = e.target.innerText;
 	suggestions.innerHTML = "";
 }
 
